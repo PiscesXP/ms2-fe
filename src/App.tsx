@@ -1,26 +1,72 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter,
+  Link,
+  Redirect,
+  Route,
+  Switch,
+  useLocation,
+} from "react-router-dom";
+import { ConsolePage } from "./pages/ConsolePage";
+import { Card, Layout, Menu } from "antd";
+import "antd/dist/antd.css";
+import "./App.css";
+import { BackupPage } from "./pages/BackupPage";
 
-function App() {
+const { Header, Content, Footer } = Layout;
+
+const paths = {
+  consolePage: "/console",
+  backupPage: "/backup",
+};
+
+export const Main = () => {
+  const location = useLocation();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Layout className="layout">
+      <Header>
+        <div className="logo" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={[location.pathname]}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Menu.Item key={paths.consolePage}>
+            控制台
+            <Link to={paths.consolePage} />
+          </Menu.Item>
+          <Menu.Item key={paths.backupPage}>
+            备份恢复
+            <Link to={paths.backupPage} />
+          </Menu.Item>
+        </Menu>
+      </Header>
+      <Content className="content">
+        <div className="site-layout-content">
+          <Switch>
+            <Route path={paths.consolePage}>
+              <ConsolePage />
+            </Route>
+            <Route path={paths.backupPage}>
+              <BackupPage />
+            </Route>
+            <Route>
+              <Redirect to={paths.consolePage} />
+            </Route>
+          </Switch>
+        </div>
+      </Content>
+      <Footer style={{ textAlign: "center" }}>
+        Minecraft Server Management System - 崽崽养殖场
+      </Footer>
+    </Layout>
   );
-}
+};
 
-export default App;
+export const App = () => {
+  return (
+    <BrowserRouter>
+      <Main />
+    </BrowserRouter>
+  );
+};
