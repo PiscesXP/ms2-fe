@@ -6,11 +6,12 @@ import {
   Switch,
   useLocation,
 } from "react-router-dom";
-import { ConsolePage } from "./pages/ConsolePage";
+import { ConsolePage } from "./pages/console/ConsolePage";
 import { Card, Layout, Menu } from "antd";
 import "antd/dist/antd.css";
 import "./App.css";
 import { BackupPage } from "./pages/BackupPage";
+import { PassportPage } from "./pages/PassportPage";
 
 const { Header, Content, Footer } = Layout;
 
@@ -43,6 +44,7 @@ export const Main = () => {
       </Header>
       <Content className="content">
         <div className="site-layout-content">
+          <PassportPage />
           <Switch>
             <Route path={paths.consolePage}>
               <ConsolePage />

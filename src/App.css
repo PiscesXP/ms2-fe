@@ -9,7 +9,6 @@
 .site-layout-content {
     min-height: 280px;
     padding: 24px;
-    background: #fff;
 }
 
 .logo {
@@ -18,4 +17,15 @@
     height: 31px;
     margin: 16px 24px 16px 0;
     background: rgba(255, 255, 255, 0.3);
+}
+
+.console-layout {
+    display: flex;
+    flex-direction: column;
+}
+.console-io {
+    flex: 1 1;
+}
+.console-form {
+    flex: 0 0 1 ;
 }
