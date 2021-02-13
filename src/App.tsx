@@ -7,11 +7,12 @@ import {
   useLocation,
 } from "react-router-dom";
 import { ConsolePage } from "./pages/console/ConsolePage";
-import { Card, Layout, Menu } from "antd";
+import { Layout, Menu, Spin } from "antd";
 import "antd/dist/antd.css";
 import "./App.css";
 import { BackupPage } from "./pages/BackupPage";
-import { PassportPage } from "./pages/PassportPage";
+import { AuthenticationModal } from "./AuthenticationModal";
+import { useRequest } from "ahooks";
 
 const { Header, Content, Footer } = Layout;
 
@@ -22,6 +23,28 @@ const paths = {
 
 export const Main = () => {
   const location = useLocation();
+
+  const verifyAuthRequest = useRequest(async () => {
+    const result = await fetch("http://localhost:23333/validate", {
+      credentials: "include",
+      mode: "cors",
+    });
+    const json = await result.json();
+    return json?.result === "ok";
+  });
+
+  if (verifyAuthRequest.loading) {
+    return <Spin />;
+  }
+  if (!verifyAuthRequest.data) {
+    return (
+      <AuthenticationModal
+        onAuthSuccess={() => {
+          verifyAuthRequest.mutate(() => true);
+        }}
+      />
+    );
+  }
 
   return (
     <Layout className="layout">
@@ -44,7 +67,6 @@ export const Main = () => {
       </Header>
       <Content className="content">
         <div className="site-layout-content">
-          <PassportPage />
           <Switch>
             <Route path={paths.consolePage}>
               <ConsolePage />
