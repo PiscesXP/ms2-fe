@@ -21,6 +21,7 @@ export const BackupSelectForm: React.FC<BackupSelectFormProps> = ({
       const result = await fetch(buildUrl("/mc/rollback"), {
         credentials: "include",
         mode: "cors",
+        method: "POST",
         headers: {
           "content-type": "application/json",
         },
@@ -34,7 +35,7 @@ export const BackupSelectForm: React.FC<BackupSelectFormProps> = ({
   );
 
   const handleRollback = async (values: any) => {
-    const result = await rollbackRequest.run(values);
+    const result = await rollbackRequest.run(values.backupName);
     if (result?.result === "ok") {
       Modal.success({
         title: "恢复成功",
@@ -52,10 +53,12 @@ export const BackupSelectForm: React.FC<BackupSelectFormProps> = ({
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 12 }}
     >
-      <Form.Item label="选择版本" name="version" required>
+      <Form.Item label="选择版本" name="backupName" required>
         <Select loading={loading}>
           {backups.map((value) => (
-            <Select.Option value={value}>{value}</Select.Option>
+            <Select.Option key={value} value={value}>
+              {value}
+            </Select.Option>
           ))}
         </Select>
       </Form.Item>
