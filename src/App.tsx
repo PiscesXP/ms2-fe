@@ -10,7 +10,7 @@ import { ConsolePage } from "./pages/console/ConsolePage";
 import { Layout, Menu, Spin } from "antd";
 import "antd/dist/antd.css";
 import "./App.css";
-import { BackupPage } from "./pages/BackupPage";
+import { BackupPage } from "./pages/backup/BackupPage";
 import { AuthenticationModal } from "./AuthenticationModal";
 import { useRequest } from "ahooks";
 
