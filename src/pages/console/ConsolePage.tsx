@@ -3,6 +3,7 @@ import { CenterMeFlex, CenterMeResponsive } from "../../components/layout";
 import { useRequest } from "ahooks";
 import { CommandForm } from "./CommandForm";
 import { IODisplay } from "./IODisplay";
+import { buildUrl } from "../../config/config";
 
 interface FetchData {
   stdout: IODataItem[];
@@ -11,7 +12,7 @@ interface FetchData {
 export const ConsolePage = () => {
   const { data, loading, run } = useRequest<FetchData>(
     async () => {
-      const result = await fetch("http://localhost:23333/mc/stdout", {
+      const result = await fetch(buildUrl("/mc/stdout"), {
         credentials: "include",
         mode: "cors",
       });
@@ -36,7 +37,7 @@ export const ConsolePage = () => {
   //submit command
   const submit = useRequest(
     async (command: string) => {
-      const result = await fetch("http://localhost:23333/mc/stdin", {
+      const result = await fetch(buildUrl("/mc/stdin"), {
         credentials: "include",
         mode: "cors",
         method: "POST",

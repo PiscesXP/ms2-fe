@@ -3,10 +3,11 @@ import { Card, Divider, Spin } from "antd";
 import { BackupSelectForm } from "./BackupSelectForm";
 import { CenterMe, CenterMeResponsive } from "../../components/layout";
 import { Backup } from "./Backup";
+import { buildUrl } from "../../config/config";
 
 export const BackupPage = () => {
   const { data, loading, run } = useRequest(async () => {
-    const result = await fetch("http://localhost:23333/mc/backup", {
+    const result = await fetch(buildUrl("/mc/backup"), {
       credentials: "include",
       mode: "cors",
     });

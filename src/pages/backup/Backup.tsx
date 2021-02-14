@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Form, Modal } from "antd";
 import { useRequest } from "ahooks";
+import { buildUrl } from "../../config/config";
 
 interface BackupSelectFormProps {
   refreshBackupList: () => void;
@@ -13,7 +14,7 @@ export const Backup: React.FC<BackupSelectFormProps> = ({
 
   const backupRequest = useRequest(
     async () => {
-      const result = await fetch("http://localhost:23333/mc/backup", {
+      const result = await fetch(buildUrl("/mc/backup"), {
         credentials: "include",
         mode: "cors",
         method: "POST",

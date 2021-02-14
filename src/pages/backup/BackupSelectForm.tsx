@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Form, Modal, Select } from "antd";
 import { useRequest } from "ahooks";
+import { buildUrl } from "../../config/config";
 
 interface BackupSelectFormProps {
   loading: boolean;
@@ -17,7 +18,7 @@ export const BackupSelectForm: React.FC<BackupSelectFormProps> = ({
 
   const rollbackRequest = useRequest(
     async (backupName: string) => {
-      const result = await fetch("http://localhost:23333/mc/rollback", {
+      const result = await fetch(buildUrl("/mc/rollback"), {
         credentials: "include",
         mode: "cors",
         headers: {

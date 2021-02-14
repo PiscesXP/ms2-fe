@@ -13,6 +13,7 @@ import "./App.css";
 import { BackupPage } from "./pages/backup/BackupPage";
 import { AuthenticationModal } from "./AuthenticationModal";
 import { useRequest } from "ahooks";
+import { buildUrl } from "./config/config";
 
 const { Header, Content, Footer } = Layout;
 
@@ -25,7 +26,7 @@ export const Main = () => {
   const location = useLocation();
 
   const verifyAuthRequest = useRequest(async () => {
-    const result = await fetch("http://localhost:23333/validate", {
+    const result = await fetch(buildUrl("/validate"), {
       credentials: "include",
       mode: "cors",
     });

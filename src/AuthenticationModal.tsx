@@ -1,6 +1,7 @@
 import { Form, Input, Modal } from "antd";
 import { useState } from "react";
 import { useRequest } from "ahooks";
+import { buildUrl } from "./config/config";
 
 interface AuthenticationModalProps {
   onAuthSuccess: () => void;
@@ -15,7 +16,7 @@ export const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
 
   const { run, loading } = useRequest(
     async () => {
-      const result = await fetch("http://localhost:23333/validate", {
+      const result = await fetch(buildUrl("/validate"), {
         credentials: "include",
         mode: "cors",
         method: "POST",
